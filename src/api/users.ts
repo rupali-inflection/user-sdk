@@ -35,7 +35,6 @@ export class Users extends Base {
   }
 
   async search(filters: UserSearchFilters = {}): Promise<User[]> {
-    // return this.request<User[]>(`/users/search`,undefined,authToken);
     const query = new URLSearchParams(filters as Record<string, string>).toString();
     return this.request<User[]>(`/users/search?${query}`,undefined,true);
   }

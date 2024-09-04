@@ -2,7 +2,7 @@ import fetch from 'isomorphic-unfetch';
 
 type Config = {
   apiKey?: string;
-  baseUrl: string;
+  // baseUrl: string;
 };
 
 export abstract class Base {
@@ -12,7 +12,7 @@ export abstract class Base {
 
   constructor(config: Config) {
     this.apiKey = config.apiKey ?? 'xyz';
-    this.baseUrl = config.baseUrl;
+    this.baseUrl = 'http://localhost:3456/api/v1';
   }
 
   setAuthToken(token: string) {

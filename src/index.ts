@@ -1,4 +1,3 @@
-
 import { Auth } from './api/auth';
 import { Users } from './api/users';
 
@@ -7,16 +6,23 @@ export class Library {
   private auth: Auth;
   private authToken: string | null = null;
 
-  constructor(config: { apiKey?: string; baseUrl: string }) {
+  constructor(config: { apiKey?: string}) {
     this.auth = new Auth(config);
     this.users = new Users(config);
   }
 
-  async login(username: string, password: string): Promise<void> {
-    const token = await this.auth.login(username, password);
-    this.authToken = token;
-    // Set the auth token for all services
-    this.users.setAuthToken(token);
+  async authenticateUser(username: string, password: string): Promise<void> {
+    try {
+      const token = await this.auth.login(username, password);
+      this.authToken = token;
+      
+      // Set the auth token for all services
+      this.users.setAuthToken(token);
+      console.log('Login successful!');
+    } catch (error) {
+      console.error('Login failed:', error);
+      throw error;
+    }
   }
   
 }
